@@ -9,14 +9,15 @@ router.get('/', function  (req, res) {
 });
 
 // show
-router.get('/:id', function  (req, res) {
-    postsArray.forEach(element => {
-        if (element.title === req.params.id) {
-            res.json(element);
-            return;
-        }
-        res.send('Ecco il post ' + req.params.id);
-    });
+router.get('/:slug', function  (req, res) {
+    const slug = req.params.slug;
+
+    const post = postsArray.filter((el) => el.slug === slug);
+    if ( post.length > 0) {
+        res.json(post);
+    } else {
+        res.send('Ecco il post ' + req.params.slug);
+    }
 });
 
 // store
