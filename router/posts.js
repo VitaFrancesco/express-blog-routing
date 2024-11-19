@@ -1,14 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
+const postsArray = require('../posts');
+
 // index
 router.get('/', function  (req, res) {
-    res.send('Lista dei post');
+    res.json(postsArray);
 });
 
 // show
 router.get('/:id', function  (req, res) {
-    res.send('Ecco il post ' + req.params.id);
+    postsArray.forEach(element => {
+        if (element.title === req.params.id) {
+            res.json(element);
+            return;
+        }
+        res.send('Ecco il post ' + req.params.id);
+    });
 });
 
 // store
